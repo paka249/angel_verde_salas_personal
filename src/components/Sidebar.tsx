@@ -9,8 +9,8 @@ const NAV_ITEMS = [
     path: '/',
     icon: (
       <svg className={iconClass} viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-        <polyline points="4 11 12 4 20 11" />
-        <rect x="7" y="11" width="10" height="9" rx="1" />
+        <polyline points="4 12 12 5 20 12" />
+        <rect x="4" y="12" width="16" height="8" rx="1" />
         <line x1="12" y1="20" x2="12" y2="15" />
       </svg>
     ),
@@ -43,11 +43,10 @@ const NAV_ITEMS = [
     label: 'Hobbies',
     path: '/hobbies',
     icon: (
-      <svg className={iconClass} viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round">
-        <line x1="12" y1="2" x2="12" y2="22" />
-        <line x1="2" y1="12" x2="22" y2="12" />
-        <line x1="5" y1="5" x2="19" y2="19" />
-        <line x1="19" y1="5" x2="5" y2="19" />
+      <svg className={iconClass} viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+        <line x1="19" y1="3" x2="10" y2="12" />
+        <polygon points="10 12 6 16 8 18 12 14" fill="currentColor" stroke="none" />
+        <circle cx="5.5" cy="19.5" r="1.4" fill="currentColor" stroke="none" />
       </svg>
     ),
   },
