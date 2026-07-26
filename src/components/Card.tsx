@@ -11,14 +11,14 @@ function Card({ title, description, url, tags }: CardProps) {
 
   const content = (
     <>
-      <h3 className="text-lg font-semibold text-text">{title}</h3>
+      <h3 className="font-heading text-lg font-semibold text-text">{title}</h3>
       <p className="mt-2 text-sm text-muted">{description}</p>
       {tags && tags.length > 0 && (
         <ul className="mt-4 flex flex-wrap gap-2">
           {tags.map((tag) => (
             <li
               key={tag}
-              className="rounded-full bg-bg px-3 py-1 text-xs font-medium text-muted"
+              className="font-caption rounded-full bg-bg px-3 py-1 text-xs font-medium text-muted"
             >
               {tag}
             </li>

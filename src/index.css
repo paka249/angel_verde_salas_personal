@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "./styles/theme.css";
+@import "./styles/fonts.css";
 
 * {
   box-sizing: border-box;
@@ -7,4 +8,5 @@
 
 body {
   margin: 0;
+  font-family: var(--font-body);
 }

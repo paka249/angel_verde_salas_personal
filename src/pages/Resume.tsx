@@ -1,7 +1,7 @@
 function Resume() {
   return (
     <div>
-      <h1 className="text-2xl font-semibold text-text">Resume</h1>
+      <h1 className="font-heading text-2xl font-semibold text-text">Resume</h1>
       <div className="mt-8 overflow-hidden rounded-lg border border-muted/20 bg-surface">
         <object
           data="/Angel Verde-Salas Resume 2026 S.pdf"
@@ -21,7 +21,7 @@ function Resume() {
       <a
         href="/Angel Verde-Salas Resume 2026 S.pdf"
         download
-        className="mt-4 inline-block text-sm text-muted underline hover:text-accent"
+        className="font-caption mt-4 inline-block text-sm text-muted underline hover:text-accent"
       >
         Download PDF
       </a>
