@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState, type FocusEvent, type KeyboardEvent } from 'react'
 
 interface CarouselImage {
   src: string
@@ -9,15 +9,56 @@ interface CarouselProps {
   images: CarouselImage[]
 }
 
+const AUTO_ADVANCE_MS = 5000
+
 function Carousel({ images }: CarouselProps) {
   const [index, setIndex] = useState(0)
-
-  if (images.length === 0) return null
+  const [isHovering, setIsHovering] = useState(false)
+  const [isFocusedWithin, setIsFocusedWithin] = useState(false)
 
   const goTo = (target: number) => setIndex((target + images.length) % images.length)
 
+  useEffect(() => {
+    if (images.length <= 1 || isHovering || isFocusedWithin) return
+
+    const timer = setInterval(() => {
+      setIndex((current) => (current + 1) % images.length)
+    }, AUTO_ADVANCE_MS)
+
+    return () => clearInterval(timer)
+  }, [images.length, isHovering, isFocusedWithin, index])
+
+  if (images.length === 0) return null
+
+  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === 'ArrowLeft') {
+      event.preventDefault()
+      goTo(index - 1)
+    } else if (event.key === 'ArrowRight') {
+      event.preventDefault()
+      goTo(index + 1)
+    }
+  }
+
+  const handleBlur = (event: FocusEvent<HTMLDivElement>) => {
+    if (!event.currentTarget.contains(event.relatedTarget as Node)) {
+      setIsFocusedWithin(false)
+    }
+  }
+
   return (
-    <div className="w-full">
+    <div
+      className="w-full rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+      tabIndex={0}
+      role="region"
+      aria-roledescription="carousel"
+      aria-label="Photo carousel"
+      onKeyDown={handleKeyDown}
+      onMouseEnter={() => setIsHovering(true)}
+      onMouseLeave={() => setIsHovering(false)}
+      onFocus={() => setIsFocusedWithin(true)}
+      onBlur={handleBlur}
+    >
       <div className="relative overflow-hidden rounded-lg border border-muted/20 bg-surface">
         <img
           src={images[index].src}
