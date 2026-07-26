@@ -52,8 +52,18 @@ const NAV_ITEMS = [
 
 const CONTACT_LINKS = [
   {
-    label: 'Email',
-    href: 'mailto:ange7verde@gmail.com',
+    label: 'Gmail',
+    href: 'https://mail.google.com/mail/?view=cm&fs=1&to=usn3@txstate.edu',
+    icon: (
+      <svg className={iconClass} viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="5" width="18" height="14" rx="2" />
+        <polyline points="3 7 12 13 21 7" />
+      </svg>
+    ),
+  },
+  {
+    label: 'Outlook',
+    href: 'https://outlook.office.com/mail/deeplink/compose?to=usn3@txstate.edu',
     icon: (
       <svg className={iconClass} viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
         <rect x="3" y="5" width="18" height="14" rx="2" />
