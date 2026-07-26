@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <rect width="800" height="450" fill="#e4e7ec"/>
+  <rect x="1" y="1" width="798" height="448" fill="none" stroke="#9aa3af" stroke-width="2"/>
+  <text x="400.0" y="215.0" font-family="sans-serif" font-size="36" fill="#6b7280" text-anchor="middle">Photo 1</text>
+  <text x="400.0" y="255.0" font-family="sans-serif" font-size="18" fill="#9aa3af" text-anchor="middle">Replace with your own image</text>
+</svg>
