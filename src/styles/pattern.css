@@ -1,0 +1,26 @@
+:root {
+  --pattern-grid-gap: 32px;
+  --pattern-grid-opacity: 12%;
+  --pattern-glow-opacity: 22%;
+  --pattern-glow-size: 42%;
+}
+
+.pattern-wallpaper {
+  background-color: var(--color-bg);
+  background-image:
+    radial-gradient(
+      circle at var(--mx, 50%) var(--my, 20%),
+      color-mix(in srgb, var(--color-accent) var(--pattern-glow-opacity), transparent) 0%,
+      transparent var(--pattern-glow-size)
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--color-muted) var(--pattern-grid-opacity), transparent) 0 1px,
+      transparent 1px var(--pattern-grid-gap)
+    ),
+    repeating-linear-gradient(
+      to right,
+      color-mix(in srgb, var(--color-muted) var(--pattern-grid-opacity), transparent) 0 1px,
+      transparent 1px var(--pattern-grid-gap)
+    );
+}

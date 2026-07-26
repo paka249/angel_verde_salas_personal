@@ -1,6 +1,6 @@
 function Home() {
   return (
-    <div>
+    <div className="rounded-2xl border border-muted/20 bg-surface p-8 shadow-sm md:p-10">
       <h1 className="font-heading text-3xl font-semibold text-text">Angel Verde-Salas</h1>
       <p className="mt-2 text-lg text-muted">Your title/role goes here</p>
       <p className="mt-6 max-w-xl text-text">
