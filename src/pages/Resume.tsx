@@ -4,14 +4,14 @@ function Resume() {
       <h1 className="text-2xl font-semibold text-text">Resume</h1>
       <div className="mt-8 overflow-hidden rounded-lg border border-muted/20 bg-surface">
         <object
-          data="/resume.pdf"
+          data="/Angel Verde-Salas Resume 2026 S.pdf"
           type="application/pdf"
           className="h-[80vh] w-full"
           aria-label="Resume PDF"
         >
           <p className="p-6 text-sm text-muted">
             Your browser can't preview PDFs inline.{' '}
-            <a href="/resume.pdf" className="text-accent underline">
+            <a href="/Angel Verde-Salas Resume 2026 S.pdf" className="text-accent underline">
               Download the PDF
             </a>{' '}
             instead.
@@ -19,7 +19,7 @@ function Resume() {
         </object>
       </div>
       <a
-        href="/resume.pdf"
+        href="/Angel Verde-Salas Resume 2026 S.pdf"
         download
         className="mt-4 inline-block text-sm text-muted underline hover:text-accent"
       >

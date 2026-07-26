@@ -9,9 +9,9 @@ const NAV_ITEMS = [
 ]
 
 const CONTACT_LINKS = [
-  { label: 'Email', href: 'mailto:you@example.com' },
-  { label: 'GitHub', href: 'https://github.com/your-username' },
-  { label: 'LinkedIn', href: 'https://linkedin.com/in/your-username' },
+  { label: 'Email', href: 'mailto:ange7verde@gmail.com' },
+  { label: 'GitHub', href: 'https://github.com/paka249' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/angel-verde-salas-3a591425b' },
 ]
 
 function Sidebar() {
@@ -34,7 +34,7 @@ function Sidebar() {
         }`}
       >
         <div>
-          <div className="mb-8 text-lg font-semibold text-text">Angel Verde</div>
+          <div className="mb-8 text-lg font-semibold text-text">Angel Verde-Salas</div>
           <nav className="flex flex-col gap-2">
             {NAV_ITEMS.map((item) => (
               <NavLink
