@@ -101,10 +101,16 @@ function Sidebar() {
   const [isCollapsed, setIsCollapsed] = useState(
     () => window.localStorage.getItem(COLLAPSE_STORAGE_KEY) === 'true',
   )
+  const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>(() =>
+    Object.fromEntries(NAV_ITEMS.filter((item) => item.sections).map((item) => [item.path, true])),
+  )
 
   useEffect(() => {
     window.localStorage.setItem(COLLAPSE_STORAGE_KEY, String(isCollapsed))
   }, [isCollapsed])
+
+  const toggleSection = (path: string) =>
+    setExpandedSections((current) => ({ ...current, [path]: !current[path] }))
 
   return (
     <>
@@ -118,7 +124,7 @@ function Sidebar() {
       </button>
 
       <aside
-        className={`font-sidebar fixed inset-y-0 left-0 z-10 flex w-64 flex-col justify-between bg-surface p-4 transition-all duration-200 ease-in-out md:static ${
+        className={`font-sidebar fixed inset-y-0 left-0 z-10 flex w-64 flex-col justify-between overflow-y-auto bg-surface p-4 transition-all duration-200 ease-in-out md:sticky md:top-0 md:h-screen md:self-start ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         } md:translate-x-0 ${isCollapsed ? 'md:w-20' : 'md:w-64'}`}
       >
@@ -144,27 +150,50 @@ function Sidebar() {
             {NAV_ITEMS.map((item) => {
               const isCurrentPage = location.pathname === item.path
 
+              const showToggle = item.sections && isCurrentPage
+              const isExpanded = expandedSections[item.path]
+
               return (
                 <div key={item.path}>
-                  <NavLink
-                    to={item.path}
-                    end={item.path === '/'}
-                    onClick={() => setIsOpen(false)}
-                    title={item.label}
-                    aria-label={item.label}
-                    className={({ isActive }) =>
-                      `flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors ${
-                        isCollapsed ? 'md:justify-center md:px-2' : ''
-                      } ${isActive ? 'bg-accent text-bg' : 'text-muted hover:bg-bg hover:text-text'}`
-                    }
-                  >
-                    {item.icon}
-                    <span className={isCollapsed ? 'md:hidden' : ''}>{item.label}</span>
-                  </NavLink>
+                  <div className="flex items-center gap-1">
+                    <NavLink
+                      to={item.path}
+                      end={item.path === '/'}
+                      onClick={() => setIsOpen(false)}
+                      title={item.label}
+                      aria-label={item.label}
+                      className={({ isActive }) =>
+                        `flex flex-1 items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+                          isCollapsed ? 'md:justify-center md:px-2' : ''
+                        } ${isActive ? 'bg-accent text-bg' : 'text-muted hover:bg-bg hover:text-text'}`
+                      }
+                    >
+                      {item.icon}
+                      <span className={isCollapsed ? 'md:hidden' : ''}>{item.label}</span>
+                    </NavLink>
 
-                  {item.sections && isCurrentPage && (
+                    {showToggle && (
+                      <button
+                        type="button"
+                        onClick={() => toggleSection(item.path)}
+                        className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-muted transition-colors hover:bg-bg hover:text-text ${
+                          isCollapsed ? 'md:hidden' : ''
+                        }`}
+                        aria-label={isExpanded ? `Collapse ${item.label} sections` : `Expand ${item.label} sections`}
+                        aria-expanded={isExpanded}
+                      >
+                        <span
+                          className={`inline-block text-xs transition-transform ${isExpanded ? 'rotate-90' : ''}`}
+                        >
+                          ▸
+                        </span>
+                      </button>
+                    )}
+                  </div>
+
+                  {showToggle && isExpanded && (
                     <div className={`ml-4 mt-1 flex flex-col gap-1 border-l border-muted/20 pl-4 ${isCollapsed ? 'md:hidden' : ''}`}>
-                      {item.sections.map((section) => (
+                      {item.sections!.map((section) => (
                         <a
                           key={section.id}
                           href={`#${section.id}`}
