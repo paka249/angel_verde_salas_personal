@@ -1,34 +1,36 @@
-import { useEffect, useState, type FocusEvent, type KeyboardEvent } from 'react'
+import { useEffect, useState, type FocusEvent, type KeyboardEvent, type ReactNode } from 'react'
 
-interface CarouselImage {
-  src: string
-  alt: string
+export interface CarouselSlide {
+  id: string
+  media: ReactNode
+  caption?: ReactNode
 }
 
 interface CarouselProps {
-  images: CarouselImage[]
+  slides: CarouselSlide[]
+  ariaLabel?: string
 }
 
 const AUTO_ADVANCE_MS = 5000
 
-function Carousel({ images }: CarouselProps) {
+function Carousel({ slides, ariaLabel = 'Carousel' }: CarouselProps) {
   const [index, setIndex] = useState(0)
   const [isHovering, setIsHovering] = useState(false)
   const [isFocusedWithin, setIsFocusedWithin] = useState(false)
 
-  const goTo = (target: number) => setIndex((target + images.length) % images.length)
+  const goTo = (target: number) => setIndex((target + slides.length) % slides.length)
 
   useEffect(() => {
-    if (images.length <= 1 || isHovering || isFocusedWithin) return
+    if (slides.length <= 1 || isHovering || isFocusedWithin) return
 
     const timer = setInterval(() => {
-      setIndex((current) => (current + 1) % images.length)
+      setIndex((current) => (current + 1) % slides.length)
     }, AUTO_ADVANCE_MS)
 
     return () => clearInterval(timer)
-  }, [images.length, isHovering, isFocusedWithin, index])
+  }, [slides.length, isHovering, isFocusedWithin, index])
 
-  if (images.length === 0) return null
+  if (slides.length === 0) return null
 
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.key === 'ArrowLeft') {
@@ -46,56 +48,58 @@ function Carousel({ images }: CarouselProps) {
     }
   }
 
+  const current = slides[index]
+
   return (
     <div
       className="w-full rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
       tabIndex={0}
       role="region"
       aria-roledescription="carousel"
-      aria-label="Photo carousel"
+      aria-label={ariaLabel}
       onKeyDown={handleKeyDown}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
       onFocus={() => setIsFocusedWithin(true)}
       onBlur={handleBlur}
     >
-      <div className="relative overflow-hidden rounded-lg border border-muted/20 bg-surface">
-        <img
-          src={images[index].src}
-          alt={images[index].alt}
-          className="aspect-video w-full object-cover"
-        />
+      <div className="overflow-hidden rounded-lg border border-muted/20 bg-surface">
+        <div className="relative">
+          {current.media}
 
-        {images.length > 1 && (
-          <>
-            <button
-              type="button"
-              onClick={() => goTo(index - 1)}
-              className="absolute left-2 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-surface/90 text-lg text-text transition-colors hover:bg-accent hover:text-bg"
-              aria-label="Previous image"
-            >
-              ‹
-            </button>
-            <button
-              type="button"
-              onClick={() => goTo(index + 1)}
-              className="absolute right-2 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-surface/90 text-lg text-text transition-colors hover:bg-accent hover:text-bg"
-              aria-label="Next image"
-            >
-              ›
-            </button>
-          </>
-        )}
+          {slides.length > 1 && (
+            <>
+              <button
+                type="button"
+                onClick={() => goTo(index - 1)}
+                className="absolute left-2 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-surface/90 text-lg text-text transition-colors hover:bg-accent hover:text-bg"
+                aria-label="Previous slide"
+              >
+                ‹
+              </button>
+              <button
+                type="button"
+                onClick={() => goTo(index + 1)}
+                className="absolute right-2 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-surface/90 text-lg text-text transition-colors hover:bg-accent hover:text-bg"
+                aria-label="Next slide"
+              >
+                ›
+              </button>
+            </>
+          )}
+        </div>
+
+        {current.caption && <div className="p-6">{current.caption}</div>}
       </div>
 
-      {images.length > 1 && (
+      {slides.length > 1 && (
         <div className="mt-4 flex justify-center gap-2">
-          {images.map((image, i) => (
+          {slides.map((slide, i) => (
             <button
-              key={image.src}
+              key={slide.id}
               type="button"
               onClick={() => goTo(i)}
-              aria-label={`Go to image ${i + 1}`}
+              aria-label={`Go to slide ${i + 1}`}
               aria-current={i === index}
               className={`h-2.5 w-2.5 rounded-full transition-colors ${
                 i === index ? 'bg-accent' : 'bg-muted/40 hover:bg-muted'

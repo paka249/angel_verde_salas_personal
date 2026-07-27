@@ -2,6 +2,11 @@ import Carousel from '../components/Carousel'
 import { hobbyImages } from '../data/hobbies'
 
 function Hobbies() {
+  const slides = hobbyImages.map((image) => ({
+    id: image.src,
+    media: <img src={image.src} alt={image.alt} className="aspect-video w-full object-cover" />,
+  }))
+
   return (
     <div>
       <div className="rounded-2xl border border-muted/20 bg-surface p-8 shadow-sm md:p-10">
@@ -12,7 +17,7 @@ function Hobbies() {
         </p>
       </div>
       <div className="mt-8">
-        <Carousel images={hobbyImages} />
+        <Carousel slides={slides} ariaLabel="Photo carousel" />
       </div>
     </div>
   )
