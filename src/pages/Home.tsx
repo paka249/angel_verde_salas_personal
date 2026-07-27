@@ -1,3 +1,5 @@
+import SectionNav from '../components/SectionNav'
+
 interface HomeSection {
   id: string
   heading: string
@@ -72,10 +74,15 @@ function Home() {
         </p>
       </div>
 
+      <SectionNav
+        items={SECTIONS.map((section) => ({ id: section.id, label: section.heading }))}
+      />
+
       {SECTIONS.map((section) => (
         <section
           key={section.id}
-          className="flex flex-col gap-6 rounded-2xl border border-muted/20 bg-surface p-8 shadow-sm md:flex-row md:p-10"
+          id={section.id}
+          className="scroll-mt-20 flex flex-col gap-6 rounded-2xl border border-muted/20 bg-surface p-8 shadow-sm md:flex-row md:p-10"
         >
           <div className="flex-1">
             <h2 className="font-heading text-xl font-semibold text-text">{section.heading}</h2>
