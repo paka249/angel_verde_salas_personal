@@ -16,7 +16,7 @@ export const projects: Project[] = [
       'A full-stack fitness platform built with a small team. I led the UX/UI design and React frontend for the nutrition, account, and workout history modules, and architected the database schemas and data models behind the custom workout creator and exercise library, integrating cleanly with a FastAPI backend. I also built a modular, reusable component architecture and put together a unit testing plan to keep the app stable as it grew.',
     image: '/projects/placeholder-1.svg',
     githubUrl: 'https://github.com/paka249/replace-with-repo-name',
-    liveUrl: 'https://replace-with-live-url.com',
+    liveUrl: 'https://example.com',
     tags: ['React', 'FastAPI', 'UX/UI'],
   },
   {
