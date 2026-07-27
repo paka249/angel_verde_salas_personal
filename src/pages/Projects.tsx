@@ -45,7 +45,7 @@ function Projects() {
     <div>
       <h1 className="font-heading text-2xl font-semibold text-text">Projects</h1>
       <div className="mt-8">
-        <Carousel slides={slides} ariaLabel="Projects carousel" />
+        <Carousel slides={slides} ariaLabel="Projects carousel" autoAdvance={false} />
       </div>
     </div>
   )

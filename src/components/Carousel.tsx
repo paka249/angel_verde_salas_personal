@@ -9,11 +9,12 @@ export interface CarouselSlide {
 interface CarouselProps {
   slides: CarouselSlide[]
   ariaLabel?: string
+  autoAdvance?: boolean
 }
 
 const AUTO_ADVANCE_MS = 5000
 
-function Carousel({ slides, ariaLabel = 'Carousel' }: CarouselProps) {
+function Carousel({ slides, ariaLabel = 'Carousel', autoAdvance = true }: CarouselProps) {
   const [index, setIndex] = useState(0)
   const [isHovering, setIsHovering] = useState(false)
   const [isFocusedWithin, setIsFocusedWithin] = useState(false)
@@ -21,14 +22,14 @@ function Carousel({ slides, ariaLabel = 'Carousel' }: CarouselProps) {
   const goTo = (target: number) => setIndex((target + slides.length) % slides.length)
 
   useEffect(() => {
-    if (slides.length <= 1 || isHovering || isFocusedWithin) return
+    if (!autoAdvance || slides.length <= 1 || isHovering || isFocusedWithin) return
 
     const timer = setInterval(() => {
       setIndex((current) => (current + 1) % slides.length)
     }, AUTO_ADVANCE_MS)
 
     return () => clearInterval(timer)
-  }, [slides.length, isHovering, isFocusedWithin, index])
+  }, [autoAdvance, slides.length, isHovering, isFocusedWithin, index])
 
   if (slides.length === 0) return null
 
