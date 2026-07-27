@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
+import { homeSections } from '../data/home'
+import { hobbySections } from '../data/hobbies'
 
 const iconClass = 'h-5 w-5 shrink-0'
 
@@ -7,6 +9,7 @@ const NAV_ITEMS = [
   {
     label: 'Home',
     path: '/',
+    sections: homeSections.map((section) => ({ id: section.id, label: section.heading })),
     icon: (
       <svg className={iconClass} viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
         <polyline points="4 12 12 5 20 12" />
@@ -42,6 +45,7 @@ const NAV_ITEMS = [
   {
     label: 'Hobbies',
     path: '/hobbies',
+    sections: hobbySections.map((section) => ({ id: section.id, label: section.heading })),
     icon: (
       <svg className={iconClass} viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
         <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
@@ -92,6 +96,7 @@ const CONTACT_LINKS = [
 const COLLAPSE_STORAGE_KEY = 'sidebar-collapsed'
 
 function Sidebar() {
+  const location = useLocation()
   const [isOpen, setIsOpen] = useState(false)
   const [isCollapsed, setIsCollapsed] = useState(
     () => window.localStorage.getItem(COLLAPSE_STORAGE_KEY) === 'true',
@@ -136,24 +141,44 @@ function Sidebar() {
             </button>
           </div>
           <nav className="flex flex-col gap-2">
-            {NAV_ITEMS.map((item) => (
-              <NavLink
-                key={item.path}
-                to={item.path}
-                end={item.path === '/'}
-                onClick={() => setIsOpen(false)}
-                title={item.label}
-                aria-label={item.label}
-                className={({ isActive }) =>
-                  `flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors ${
-                    isCollapsed ? 'md:justify-center md:px-2' : ''
-                  } ${isActive ? 'bg-accent text-bg' : 'text-muted hover:bg-bg hover:text-text'}`
-                }
-              >
-                {item.icon}
-                <span className={isCollapsed ? 'md:hidden' : ''}>{item.label}</span>
-              </NavLink>
-            ))}
+            {NAV_ITEMS.map((item) => {
+              const isCurrentPage = location.pathname === item.path
+
+              return (
+                <div key={item.path}>
+                  <NavLink
+                    to={item.path}
+                    end={item.path === '/'}
+                    onClick={() => setIsOpen(false)}
+                    title={item.label}
+                    aria-label={item.label}
+                    className={({ isActive }) =>
+                      `flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+                        isCollapsed ? 'md:justify-center md:px-2' : ''
+                      } ${isActive ? 'bg-accent text-bg' : 'text-muted hover:bg-bg hover:text-text'}`
+                    }
+                  >
+                    {item.icon}
+                    <span className={isCollapsed ? 'md:hidden' : ''}>{item.label}</span>
+                  </NavLink>
+
+                  {item.sections && isCurrentPage && (
+                    <div className={`ml-4 mt-1 flex flex-col gap-1 border-l border-muted/20 pl-4 ${isCollapsed ? 'md:hidden' : ''}`}>
+                      {item.sections.map((section) => (
+                        <a
+                          key={section.id}
+                          href={`#${section.id}`}
+                          onClick={() => setIsOpen(false)}
+                          className="rounded-md px-2 py-1 text-sm text-muted transition-colors hover:text-accent"
+                        >
+                          {section.label}
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )
+            })}
           </nav>
         </div>
 

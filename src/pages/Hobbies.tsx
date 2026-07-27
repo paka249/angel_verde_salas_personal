@@ -1,30 +1,5 @@
 import Carousel from '../components/Carousel'
-import SectionNav from '../components/SectionNav'
-import { hobbyImages } from '../data/hobbies'
-
-interface HobbySection {
-  id: string
-  heading: string
-  paragraph: string
-}
-
-const SECTIONS: HobbySection[] = [
-  {
-    id: 'hobby-one',
-    heading: 'Hobby One',
-    paragraph: 'Replace this with a description of this hobby or interest.',
-  },
-  {
-    id: 'hobby-two',
-    heading: 'Hobby Two',
-    paragraph: 'Replace this with a description of this hobby or interest.',
-  },
-  {
-    id: 'hobby-three',
-    heading: 'Hobby Three',
-    paragraph: 'Replace this with a description of this hobby or interest.',
-  },
-]
+import { hobbyImages, hobbySections } from '../data/hobbies'
 
 function Hobbies() {
   const slides = hobbyImages.map((image) => ({
@@ -42,13 +17,9 @@ function Hobbies() {
         </p>
       </div>
 
-      <SectionNav
-        items={SECTIONS.map((section) => ({ id: section.id, label: section.heading }))}
-      />
-
       <Carousel slides={slides} ariaLabel="Photo carousel" />
 
-      {SECTIONS.map((section) => (
+      {hobbySections.map((section) => (
         <section
           key={section.id}
           id={section.id}
