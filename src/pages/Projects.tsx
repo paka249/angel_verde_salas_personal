@@ -27,15 +27,29 @@ function Projects() {
             ))}
           </ul>
         )}
-        {project.url && (
-          <a
-            href={project.url}
-            target="_blank"
-            rel="noreferrer"
-            className="mt-4 inline-block text-sm text-accent underline"
-          >
-            View project
-          </a>
+        {(project.githubUrl || project.liveUrl) && (
+          <div className="mt-4 flex flex-wrap gap-4">
+            {project.githubUrl && (
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="text-sm text-accent underline"
+              >
+                View on GitHub
+              </a>
+            )}
+            {project.liveUrl && (
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="text-sm text-accent underline"
+              >
+                View project
+              </a>
+            )}
+          </div>
         )}
       </>
     ),
