@@ -13,7 +13,7 @@ export const homeSections: HomeSection[] = [
       "Hello! I'm Angel Verde-Salas, a grad student studying Applied Mathematics at Texas State University. I recently graduated with my bachelor's in Mathematics, Applied Mathematics, and Computer Science.",
       'My research interests include Mathematical Modeling, Cryptography, Signal Processing, Machine Learning, Functional Analysis, and Field Theory.',
     ],
-    image: '/home/placeholder-about.svg',
+    image: '/home/angelV.jpg',
   },
   {
     id: 'background',
@@ -53,7 +53,7 @@ export const homeSections: HomeSection[] = [
   },
   {
     id: 'now',
-    heading: 'Right Now',
+    heading: 'Present',
     paragraphs: [
       "As of right now I'm just focusing on personal projects and research till I start my masters. I have been leaning a lot into Computer Science because of its large and young field.",
       'I have a love and hate relationship with Computer Science, but as of lately it has been a lot of admiration for the field. I owe a lot to it and want to explore more.',
