@@ -1,3 +1,4 @@
+import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect, useState, type FocusEvent, type KeyboardEvent, type ReactNode } from 'react'
 
 export interface CarouselSlide {
@@ -14,17 +15,28 @@ interface CarouselProps {
 
 const AUTO_ADVANCE_MS = 5000
 
+const slideVariants = {
+  enter: (direction: number) => ({ x: direction * 32, opacity: 0 }),
+  center: { x: 0, opacity: 1 },
+  exit: (direction: number) => ({ x: direction * -32, opacity: 0 }),
+}
+
 function Carousel({ slides, ariaLabel = 'Carousel', autoAdvance = true }: CarouselProps) {
   const [index, setIndex] = useState(0)
+  const [direction, setDirection] = useState(1)
   const [isHovering, setIsHovering] = useState(false)
   const [isFocusedWithin, setIsFocusedWithin] = useState(false)
 
-  const goTo = (target: number) => setIndex((target + slides.length) % slides.length)
+  const goTo = (target: number) => {
+    setDirection(target > index ? 1 : -1)
+    setIndex((target + slides.length) % slides.length)
+  }
 
   useEffect(() => {
     if (!autoAdvance || slides.length <= 1 || isHovering || isFocusedWithin) return
 
     const timer = setInterval(() => {
+      setDirection(1)
       setIndex((current) => (current + 1) % slides.length)
     }, AUTO_ADVANCE_MS)
 
@@ -65,8 +77,20 @@ function Carousel({ slides, ariaLabel = 'Carousel', autoAdvance = true }: Carous
       onBlur={handleBlur}
     >
       <div className="overflow-hidden rounded-lg border border-muted/20 bg-surface">
-        <div className="relative">
-          {current.media}
+        <div className="relative overflow-hidden">
+          <AnimatePresence mode="wait" custom={direction} initial={false}>
+            <motion.div
+              key={current.id}
+              custom={direction}
+              variants={slideVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ duration: 0.3, ease: 'easeOut' }}
+            >
+              {current.media}
+            </motion.div>
+          </AnimatePresence>
 
           {slides.length > 1 && (
             <>

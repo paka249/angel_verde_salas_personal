@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import Carousel from '../components/Carousel'
 import { hobbyImages, hobbySections } from '../data/hobbies'
 
@@ -20,14 +21,20 @@ function Hobbies() {
       <Carousel slides={slides} ariaLabel="Photo carousel" />
 
       {hobbySections.map((section) => (
-        <section
+        <motion.section
           key={section.id}
           id={section.id}
           className="scroll-mt-20 rounded-2xl border border-muted/20 bg-surface p-8 shadow-sm md:p-10"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.5, ease: 'easeOut' }}
         >
-          <h2 className="font-heading text-xl font-semibold text-text">{section.heading}</h2>
+          <h2 className="font-section-title text-3xl font-semibold tracking-tight text-text">
+            {section.heading}
+          </h2>
           <p className="mt-4 text-text">{section.paragraph}</p>
-        </section>
+        </motion.section>
       ))}
     </div>
   )
