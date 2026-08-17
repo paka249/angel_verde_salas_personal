@@ -1,12 +1,15 @@
 import { motion } from 'framer-motion'
+import ImageWithFallback from '../components/ImageWithFallback'
 import { homeSections } from '../data/home'
 
 function Home() {
   return (
     <div className="space-y-8">
-      <div className="rounded-2xl border-2 border-depth/40 bg-surface p-8 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_18px_34px_-12px_rgba(100,128,158,0.32)] md:p-10">
-        <h1 className="font-heading text-3xl font-semibold text-text">Angel Verde-Salas</h1>
-        <p className="mt-2 text-lg text-muted">
+      <div>
+        <h1 className="font-section-title text-4xl font-semibold tracking-tight text-text">
+          Angel Verde-Salas
+        </h1>
+        <p className="mt-2 text-base text-muted">
           Graduate Student in Applied Mathematics at Texas State University
         </p>
       </div>
@@ -31,10 +34,10 @@ function Home() {
               </p>
             ))}
           </div>
-          <motion.img
+          <ImageWithFallback
             src={section.image}
             alt=""
-            className="aspect-square w-full rounded-lg object-cover md:w-48 md:shrink-0"
+            wrapperClassName="aspect-square w-full rounded-lg md:w-48 md:shrink-0"
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, amount: 0.3 }}

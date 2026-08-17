@@ -1,14 +1,15 @@
 import { projects } from '../data/projects'
 import Carousel from '../components/Carousel'
+import ImageWithFallback from '../components/ImageWithFallback'
 
 function Projects() {
   const slides = projects.map((project) => ({
     id: project.id,
     media: (
-      <img
+      <ImageWithFallback
         src={project.image}
         alt={project.name}
-        className="aspect-video w-full object-cover"
+        wrapperClassName="aspect-video w-full"
       />
     ),
     caption: (
@@ -57,7 +58,7 @@ function Projects() {
 
   return (
     <div>
-      <h1 className="font-heading text-2xl font-semibold text-text">Projects</h1>
+      <h1 className="font-section-title text-4xl font-semibold tracking-tight text-text">Projects</h1>
       <div className="mt-8">
         <Carousel slides={slides} ariaLabel="Projects carousel" autoAdvance={false} />
       </div>
