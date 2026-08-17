@@ -10,7 +10,7 @@ function Hobbies() {
 
   return (
     <div className="space-y-8">
-      <div className="rounded-2xl border border-muted/20 bg-surface p-8 shadow-sm md:p-10">
+      <div className="rounded-2xl border-2 border-depth/40 bg-surface p-8 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_18px_34px_-12px_rgba(100,128,158,0.32)] md:p-10">
         <h1 className="font-heading text-2xl font-semibold text-text">Hobbies</h1>
         <p className="mt-6 max-w-xl text-text">
           Replace this placeholder with whatever you want to share here — hobbies,
@@ -24,7 +24,7 @@ function Hobbies() {
         <motion.section
           key={section.id}
           id={section.id}
-          className="scroll-mt-20 rounded-2xl border border-muted/20 bg-surface p-8 shadow-sm md:p-10"
+          className="scroll-mt-20 rounded-2xl border-2 border-depth/40 bg-surface p-8 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_18px_34px_-12px_rgba(100,128,158,0.32)] md:p-10"
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}

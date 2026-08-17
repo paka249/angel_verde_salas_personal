@@ -76,7 +76,7 @@ function Carousel({ slides, ariaLabel = 'Carousel', autoAdvance = true }: Carous
       onFocus={() => setIsFocusedWithin(true)}
       onBlur={handleBlur}
     >
-      <div className="overflow-hidden rounded-lg border border-muted/20 bg-surface">
+      <div className="overflow-hidden rounded-lg border-2 border-depth/40 bg-surface shadow-[0_1px_2px_rgba(15,23,42,0.04),0_18px_34px_-12px_rgba(100,128,158,0.32)]">
         <div className="relative overflow-hidden">
           <AnimatePresence mode="wait" custom={direction} initial={false}>
             <motion.div
